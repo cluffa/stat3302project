@@ -40,7 +40,7 @@ table <-
          b = round(Estimate,2),
          or.lower = exp(Estimate - 1.96*`Std. Error`),
          or.upper = exp(Estimate + 1.96*`Std. Error`),
-         `OR 95% CI` = paste("(", round(or.lower,2), ", ", round(or.upper,2), ")", sep = ""),
+         `OR 95% CI` = paste("[", round(or.lower,2), ", ", round(or.upper,2), "]", sep = ""),
          `Std. Error` = round(`Std. Error`, 2),
          `Pr(>|z|)` = round(`Pr(>|z|)`, 3)) %>% 
   left_join(names) %>% 

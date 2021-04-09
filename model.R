@@ -26,7 +26,7 @@ study2.mod2 <- glm(
   )
 summary(study2.mod2)
 
-# table for study 2
+# recreating the table for study 2
 
 coef1 <- rownames_to_column(as.data.frame(summary(study2.mod1)$coefficients), var = "Variable")
 coef2 <- rownames_to_column(as.data.frame(summary(study2.mod2)$coefficients), var = "Variable")
@@ -45,8 +45,6 @@ table <-
          `Pr(>|z|)` = round(`Pr(>|z|)`, 3)) %>% 
   left_join(names) %>% 
   select(Predictor, b, `Pr(>|z|)`, `Std. Error`, `Odds Ratio`, `OR 95% CI`)
-
-table
 
 rownames <- rep("", nrow(table))
 rownames[table$Predictor == "Intercept"] <- c("Model 1", "Model 2")

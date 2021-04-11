@@ -2,9 +2,9 @@ library(readxl)
 library(tidyverse)
 library(gridExtra)
 
+## recreating the table for study 2
 study2 <- read_excel("Study2 Data Unrounded.xlsx")
 
-## study 2
 study2.mod1 <- glm(sent ~ trust, data = study2, family = "binomial")
 summary(study2.mod1)
 
@@ -14,8 +14,6 @@ study2.mod2 <- glm(
   family = "binomial"
 )
 summary(study2.mod2)
-
-## recreating the table for study 2
 
 # model coefficients
 coef1 <-
@@ -45,6 +43,7 @@ names <-  data.frame(
   )
 )
 
+# creating odds ratio, CI, ...
 table <-
   bind_rows(coef1, coef2) %>%
   mutate(
@@ -61,11 +60,14 @@ table <-
 
 table
 
+# row names for output
 rownames <- rep("", nrow(table))
 rownames[table$Predictor == "Intercept"] <- c("Model 1", "Model 2")
 
+# remove CI for both intercepts
 table$`OR 95% CI`[table$Predictor == "Intercept"] <- NA
 
+# save table
 png("table2.png", height = 250, width = 500)
 grid.table(table, rows = rownames)
 dev.off()
